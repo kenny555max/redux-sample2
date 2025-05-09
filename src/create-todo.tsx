@@ -1,4 +1,6 @@
 import { useState } from "react";
+import { save_todo } from "./features/todo/todoSlice";
+import { useDispatch } from "react-redux";
 
 export interface FormDataInterface {
     task: string;
@@ -8,7 +10,7 @@ export interface FormDataInterface {
 function CreateTodo() {
     const [task, setTask] = useState<string>('');
     const [date, setDate] = useState<string>("");
-
+    const dispatch = useDispatch();
     const [formData, setFormData] = useState<FormDataInterface>({
         task: '',
         date: ''
@@ -26,6 +28,11 @@ function CreateTodo() {
             return;
         }
         setError("")
+
+        dispatch(save_todo({
+            task,
+            date
+        }));
     }
 
     return (
